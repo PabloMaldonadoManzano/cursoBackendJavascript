@@ -2,7 +2,7 @@ const { config } = require('../../config/index.js')
 
 function withErrorStack(error, stack){
     if (config.dev){
-        return {error, stack}
+        return {error, stack, Holi: 'Holi perro :V'}
     }
 
     return error
