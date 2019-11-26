@@ -12,13 +12,21 @@ app.get('/json', function(req, res){
 })*/
 
 const moviesApi = require('./routes/movies.js')
-const { logErrors, errorHandler } = require('./services/middleware/errorHandlers.js')
+const { 
+    logErrors, wrapErrors, errorHandler 
+} = require('./services/middleware/errorHandlers.js')
+const notFoundHandler = require('./services/middleware/notFoundHandler.js')
 
 app.use(express.json())
 
 moviesApi(app)
 
+//NotFound 404
+app.use(notFoundHandler)
+
+// Errors middlewares
 app.use(logErrors)
+app.use(wrapErrors)
 app.use(errorHandler)
 
 app.listen(config.port, function(){
